@@ -50,7 +50,6 @@ template <typename T>
 void ArrayQueue<T>::clear()
 {
     // TODO
-
     delete buffer;           // delete the current array
     buffer = new T[maxSize]; // create a new empty one with same max size
 }
@@ -117,11 +116,14 @@ void ArrayQueue<T>::enqueue(const T &elem)
     // TODO
     // adding an element to the back of the list
 
-    if (this->length == maxSize)
+    if (this->length == maxSize) //if we are at the max size throw string
     {
         throw string("queue is full!");
     }
-    buffer[this->length] = elem;
+    buffer[this->length] = elem; // the next available space is where the element goes
+	if(frontIndex == -1){ // if this is the first element update the frontIndex
+		frontIndex = 0;
+	}
     backIndex++;
     this->length++;
 }
