@@ -67,6 +67,7 @@ void ArrayQueue<T>::copy(const ArrayQueue<T> &copyObj)
 	maxSize = copyObj.maxSize;
 	
 	if(maxSize <= 0){
+		buffer = nullptr;
 		this->length = 0;
 		frontIndex = -1;
 		backIndex = -1;
@@ -88,8 +89,8 @@ void ArrayQueue<T>::copy(const ArrayQueue<T> &copyObj)
 	for(int i = 0; i < this->length; i ++){
 		if(frontIndex == -1) frontIndex = 0;
 		buffer[i] = copyObj.buffer[i];
-		backIndex++;
 	}
+	backIndex = this->length - 1;
 
     return;
 }
