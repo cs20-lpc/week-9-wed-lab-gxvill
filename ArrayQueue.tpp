@@ -50,7 +50,7 @@ template <typename T>
 void ArrayQueue<T>::clear()
 {
     // TODO
-    delete buffer;           // delete the current array
+    delete[] buffer;           // delete the current array
     buffer = new T[maxSize]; // create a new empty one with same max size
 }
 
@@ -60,22 +60,28 @@ void ArrayQueue<T>::copy(const ArrayQueue<T> &copyObj)
     // TODO
 
     // iterate through the copyobj and copy to current buff
-    const ArrayQueue<int> *ptr = &copyObj;
-    if (ptr->length == 0){
-        this->length = ptr->length;
-        return;
-    }
+	maxSize = copyObj.maxSize;
+    buffer = new T[maxSize];
+	
+	if(maxSize <= 0){
+		this->length = 0;
+		frontIndex = -1;
+		backIndex = -1;
+		return;
+	}
 
-    buffer = new T[ptr->length];
-    this->length = ptr->length;
+	this->length = copyObj.length;
 
-    maxSize = copyObj.maxSize;
-    int count = 0;
-    for (int i = 0; i < this->length; i++){
-        buffer[i] = copyObj.buffer[i];
-    }
-    backIndex = this->length - 1;
-    frontIndex = 0;
+	if(this->length == 0){
+		frontIndex = -1;
+		backIndex = -1;
+		return;
+	}
+
+	for(int i = 0; i < this->length; i ++){
+		buffer[i] = copyObj.buffer[i];
+	}
+
     return;
 }
 
@@ -94,7 +100,6 @@ void ArrayQueue<T>::dequeue()
         return;
     }
     if (this->length == 1){
-        buffer[0] = 0;
         this->length = 0;
         backIndex = -1;
         frontIndex = -1;
@@ -102,12 +107,12 @@ void ArrayQueue<T>::dequeue()
     }
 
     // iterating through the list, left to right, and shifting each entry
-    for (int i = 0; i < this->length; i++)
+    for (int i = 0; i < this->length - 1; ++i)
     {
         buffer[i] = buffer[i + 1];
     }
-    backIndex--;
     this->length--;
+    backIndex--;
 }
 
 template <typename T>
