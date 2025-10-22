@@ -83,6 +83,8 @@ void ArrayQueue<T>::copy(const ArrayQueue<T> &copyObj)
 		return;
 	}
 
+	frontIndex = -1;
+	backIndex = -1;
 	for(int i = 0; i < this->length; i ++){
 		if(frontIndex == -1) frontIndex = 0;
 		buffer[i] = copyObj.buffer[i];
