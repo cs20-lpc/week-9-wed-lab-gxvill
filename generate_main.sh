@@ -51,7 +51,7 @@ int main() {
     // populate queue A by enqueueing random values
     srand(time(0));
     for (int i = 0; i < queueA.getMaxSize(); i++) {
-        queueA.enqueue(rand() % 500);
+        queueA.enqueue(i);
     }
 
     // ensure that queue A is now full
